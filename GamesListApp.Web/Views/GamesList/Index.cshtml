@@ -1,0 +1,34 @@
+﻿@model GamesListApp.Web.Models.Game[]
+<!DOCTYPE html>
+    <html>
+    <head>
+    <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
+        <title>Home</title>
+    </head>
+<body>
+    <main>
+        <h1>Game List</h1>
+
+        @if (Model.Length > 0)
+        {
+            @foreach (var game in Model)
+            {
+                <article>
+                    <h2>@game.Name</h2>
+                    <p><strong>Publisher:</strong> @game.Publisher</p>
+                    <p><strong>Release Year:</strong> @game.ReleaseYear</p>
+                    <p><strong>Rating:</strong> @(@game.Rating.HasValue ? $"{game.Rating}/10" : "Not rated")</p>
+                </article>
+            }
+        }
+        else
+        {
+            <p>No games in the list yet.</p>
+        }
+
+        <footer style="margin-top: 2rem;">
+            <a href="/Create" role="button">➕ Add New Game</a>
+        </footer>
+    </main>
+</body>
+    </html>

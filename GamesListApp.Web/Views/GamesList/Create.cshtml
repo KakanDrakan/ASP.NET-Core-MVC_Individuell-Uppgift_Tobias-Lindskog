@@ -1,0 +1,42 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model GamesListApp.Web.Models.Game
+<!DOCTYPE html>
+    <html>
+    <head>
+    <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
+        <title>Add game</title>
+    </head>
+<body>
+    <main>
+        <h1>Add a New Game</h1>
+
+        <form asp-controller="GamesList" asp-action="Create">
+            <div>
+                <label asp-for="Name">Game Title</label>
+                <input asp-for="Name" />
+                <small><span asp-validation-for="Name"></span></small>
+            </div>
+
+            <div>
+                <label asp-for="Publisher">Publisher</label>
+                <input asp-for="Publisher" />
+                <small><span asp-validation-for="Publisher"></span></small>
+            </div>
+
+            <div>
+                <label asp-for="ReleaseYear">Release Year</label>
+                <input asp-for="ReleaseYear" />
+                <small><span asp-validation-for="ReleaseYear"></span></small>
+            </div>
+
+            <div>
+                <label asp-for="Rating">Rating</label>
+                <input asp-for="Rating" />
+                <small><span asp-validation-for="Rating"></span></small>
+            </div>
+
+            <input type="submit" value="Create" />
+        </form>
+    </main>
+</body>
+</html>
