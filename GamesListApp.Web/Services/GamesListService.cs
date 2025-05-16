@@ -31,5 +31,10 @@ namespace GamesListApp.Web.Services
         {
             return games.SingleOrDefault(g => g.Id == id);
         }
+
+        public bool GameNameExists(string name)
+        {
+            return games.Any(g => g.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }
