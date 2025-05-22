@@ -1,18 +1,17 @@
 ﻿using GamesListApp.Web.Services;
 using GamesListApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using GamesListApp.Web.Views.GamesList;
 
 namespace GamesListApp.Web.Controllers
 {
-    public class GamesListController : Controller
+    public class GamesListController(GamesListService gamesListService) : Controller
     {
-        static GamesListService gamesListService = new GamesListService();
-
         [HttpGet("")]
         public IActionResult Index()
         {
-            var games = gamesListService.GetAllGames();
-            return View(games);
+            var viewModel = gamesListService.GetAllGames();
+            return View(viewModel);
         }
 
         [HttpGet("/create")]
@@ -22,14 +21,14 @@ namespace GamesListApp.Web.Controllers
         }
 
         [HttpPost("/create")]
-        public IActionResult Create(Game game)
+        public IActionResult Create(CreateVM viewModel)
         {
             if (ModelState.IsValid)
             {
-                gamesListService.AddGame(game);
+                gamesListService.AddGame(viewModel);
                 return RedirectToAction("Index");
             }
-            return View(game);
+            return View(viewModel);
         }
 
     }

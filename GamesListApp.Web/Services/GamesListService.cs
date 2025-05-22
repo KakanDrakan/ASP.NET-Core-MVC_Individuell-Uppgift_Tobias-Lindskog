@@ -1,4 +1,5 @@
 ﻿using GamesListApp.Web.Models;
+using GamesListApp.Web.Views.GamesList;
 
 namespace GamesListApp.Web.Services
 {
@@ -11,8 +12,15 @@ namespace GamesListApp.Web.Services
             new Game { Id = 3, Name = "Dark Souls", Publisher = "Bandai Namco Entertainment", ReleaseYear = 2011, Rating = 9}
         };
 
-        public void AddGame(Game game)
+        public void AddGame(CreateVM viewModel)
         {
+            var game = new Game
+            {
+                Name = viewModel.Name,
+                Publisher = viewModel.Publisher,
+                ReleaseYear = viewModel.ReleaseYear,
+                Rating = viewModel.Rating
+            };
             game.Id = games.Count == 0 ? 1 : games.Max(g => g.Id) + 1;
             games.Add(game);
         }
@@ -22,10 +30,14 @@ namespace GamesListApp.Web.Services
             games.Remove(game);
         }
 
-        public Game[] GetAllGames()
+        public IndexVM[] GetAllGames() => games.Select(g => new IndexVM
         {
-            return games.ToArray();
-        }
+            Id = g.Id,
+            Name = g.Name,
+            Publisher = g.Publisher,
+            ReleaseYear = g.ReleaseYear,
+            Rating = g.Rating
+        }).ToArray();
 
         public Game GetGameById(int id)
         {
